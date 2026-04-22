@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/kthread-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/kthread-{{ version }}.tar.gz
   sha256: 90e194e6a7ff903040c4133d3ea9037c908c4296bf5f582c7fdcf6325a04f9b4
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - nose
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -29,6 +29,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/munshigroup/kthread
